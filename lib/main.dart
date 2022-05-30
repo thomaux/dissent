@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+import 'package:sqflite/sqflite.dart';
 
+import 'src/providers/team_provider.dart';
 import 'src/widgets/all.dart';
-import 'src/models/team_model.dart';
 
-void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => TeamModel(),
-      child: const DissentApp(),
-    ),
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Database db = await openDatabase(
+    join(await getDatabasesPath(), 'dissent.db'),
+    onCreate: (db, version) {
+      return db.execute(
+        'CREATE TABLE players(id INTEGER PRIMARY KEY, name TEXT)',
+      );
+    },
+    version: 1,
   );
+  runApp(ChangeNotifierProvider(
+    create: (context) => TeamProvider(db: db),
+    child: const DissentApp(),
+  ));
 }
 
 class DissentApp extends StatelessWidget {

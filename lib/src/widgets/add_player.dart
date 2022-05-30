@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
 
-import '../models/team_model.dart';
+import '../models/player.dart';
+import '../providers/team_provider.dart';
 
 class AddPlayerWidget extends StatefulWidget {
   const AddPlayerWidget({super.key});
@@ -45,8 +46,8 @@ class AddPlayerWidgetState extends State<AddPlayerWidget> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    Provider.of<TeamModel>(context, listen: false)
-                        .add(Player(name: _formKey.currentState!.fields['name']!.value));
+                    Provider.of<TeamProvider>(context, listen: false)
+                        .addPlayer(Player(name: _formKey.currentState!.fields['name']!.value));
                     Navigator.pop(context);
                   }
                 },

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/team_model.dart';
+import '../models/player.dart';
+import '../providers/team_provider.dart';
 import 'add_player.dart';
 
 class TeamWidget extends StatelessWidget {
@@ -22,14 +23,22 @@ class TeamWidget extends StatelessWidget {
           ),
         ],
       ),
-      body: Consumer<TeamModel>(
-        builder: (context, team, child) {
-          return ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: team.players.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Text('' + team.players[index].name);
+      body: Consumer<TeamProvider>(
+        builder: (context, db, child) {
+          return FutureBuilder<List<Player>>(
+            future: db.listPlayers(),
+            builder: (innerContext, snapshot) {
+              if(snapshot.hasData) {
+                return ListView.builder(
+                padding: const EdgeInsets.all(8),
+                itemCount: snapshot.data!.length,
+                itemBuilder: (BuildContext innerContext, int index) {
+                  return Text('' + snapshot.data![index].name);
               });
+              }
+              return const Text('Loading...');
+            },
+          );
         },
       ),
       endDrawer: const Drawer(
