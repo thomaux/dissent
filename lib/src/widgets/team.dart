@@ -20,9 +20,9 @@ class TeamWidget extends StatelessWidget {
         actions: [Container()], // Hide the drawer icon
       ),
       body: Consumer<TeamProvider>(
-        builder: (context, db, child) {
+        builder: (context, team, child) {
           return FutureBuilder<List<Player>>(
-            future: db.listPlayers(),
+            future: team.listPlayers(),
             builder: (innerContext, snapshot) {
               if (snapshot.hasData) {
                 return ListView.separated(
@@ -32,6 +32,10 @@ class TeamWidget extends StatelessWidget {
                     itemBuilder: (BuildContext innerContext, int index) {
                       return ListTile(
                         title: Text(snapshot.data![index].name),
+                        trailing: IconButton(
+                          onPressed: () => team.removePlayer(snapshot.data![index]),
+                          icon: const Icon(Icons.delete, color: Colors.redAccent),
+                        ),
                       );
                     },
                     separatorBuilder: (_, index) => const Divider(height: 1));

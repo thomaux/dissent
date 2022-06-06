@@ -12,6 +12,11 @@ class TeamProvider extends ChangeNotifier  {
         conflictAlgorithm: ConflictAlgorithm.replace);
     notifyListeners();
   }
+  
+  Future<void> removePlayer(Player player) async {
+    await db.delete('players', where: 'id = ?', whereArgs: [player.id]);
+    notifyListeners();
+  }
 
   Future<List<Player>> listPlayers() async {
     final List<Map<String, dynamic>> maps = await db.query('players');
@@ -19,6 +24,7 @@ class TeamProvider extends ChangeNotifier  {
     return List.generate(maps.length, (i) {
       return Player(
         name: maps[i]['name'],
+        id: maps[i]['id'],
       );
     });
   }

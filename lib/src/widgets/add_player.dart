@@ -47,7 +47,7 @@ class AddPlayerWidgetState extends State<AddPlayerWidget> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     Provider.of<TeamProvider>(context, listen: false)
-                        .addPlayer(Player(name: _formKey.currentState!.fields['name']!.value));
+                        .addPlayer(Player(name: _formKey.currentState!.fields['name']!.value, id: 0));
                     Navigator.pop(context);
                   }
                 },
