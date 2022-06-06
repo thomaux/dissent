@@ -8,18 +8,19 @@ class HomeWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('DSS&T'),
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.pushNamed(context, '/team'),
+            icon: const Icon(Icons.people),
+            tooltip: 'Beheer je team',
+          ),
+        ],
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [Container()],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/team');
-        },
-        tooltip: 'Beheer team',
-        child: const Icon(Icons.people),
       ),
     );
   }
