@@ -48,7 +48,7 @@ class TeamWidget extends StatelessWidget {
       floatingActionButton: Builder(
         builder: (context) => FloatingActionButton(
           onPressed: () => Scaffold.of(context).openEndDrawer(),
-          tooltip: 'Beheer team',
+          tooltip: 'Voeg een speler toe',
           child: const Icon(Icons.add),
         ),
       ),
