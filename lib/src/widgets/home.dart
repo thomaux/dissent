@@ -24,6 +24,7 @@ class HomeWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(gameState.phase.toString()),
+                  Text(gameState.seconds.toString()),
                   TextButton(
                     onPressed: () => gameState.nextPhase(),
                     child: const Text('Next phase'),
