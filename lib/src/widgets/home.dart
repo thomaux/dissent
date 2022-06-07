@@ -23,16 +23,23 @@ class HomeWidget extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(gameState.phase.toString()),
                   Text(gameState.seconds.toString()),
                   TextButton(
                     onPressed: () => gameState.nextPhase(),
-                    child: const Text('Next phase'),
+                    child: Text(gameState.phase.toString()),
                   ),
                   TextButton(
                     onPressed: () => gameState.reset(),
                     child: const Text('Reset'),
                   ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Text(gameState.events[index].seconds.toString());
+                      },
+                      itemCount: gameState.events.length,
+                    ),
+                  )
                 ],
               ),
             )),
