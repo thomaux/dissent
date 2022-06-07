@@ -1,3 +1,4 @@
+import 'package:dissent/src/providers/game_state_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
@@ -17,8 +18,11 @@ void main() async {
     },
     version: 1,
   );
-  runApp(ChangeNotifierProvider(
-    create: (context) => TeamProvider(db: db),
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => TeamProvider(db: db)),
+      ChangeNotifierProvider(create: (context) => GameStateProvider())
+    ],
     child: const DissentApp(),
   ));
 }

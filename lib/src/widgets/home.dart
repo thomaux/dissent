@@ -1,4 +1,6 @@
+import 'package:dissent/src/providers/game_state_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeWidget extends StatelessWidget {
   const HomeWidget({Key? key}) : super(key: key);
@@ -16,11 +18,23 @@ class HomeWidget extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [Container()],
-        ),
+      body: Consumer<GameStateProvider>(
+        builder: ((context, gameState, child) => Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(gameState.phase.toString()),
+                  TextButton(
+                    onPressed: () => gameState.nextPhase(),
+                    child: const Text('Next phase'),
+                  ),
+                  TextButton(
+                    onPressed: () => gameState.reset(),
+                    child: const Text('Reset'),
+                  ),
+                ],
+              ),
+            )),
       ),
     );
   }
